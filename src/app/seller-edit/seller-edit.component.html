@@ -1,0 +1,81 @@
+
+<div class="container py-3" *ngIf="sellerAdd != null && sellerAdd != undefined">
+ 
+   <div class="row">
+      <div class="col-md-8 order-md-1">
+         <h4 class="mb-3">Seller Form</h4>
+         <form class="needs-validation" novalidate="">
+            <div class="row">
+               <div class="col-md-6 mb-3">
+                  <label for="sellerName">Seller name</label>
+                  <input type="text" class="form-control" id="sellerName" [(ngModel)]="sellerAdd.sellerName"
+                     name="sellerName" placeholder="" value="" required="">
+                  <p *ngIf="sellerAdd.sellerName.trim()=='' && isSubmit==true" style="color: red;"> Seller name is
+                     required</p>
+                  
+               </div>
+               <div class="col-md-6 mb-3">
+                  <label for="lastName">Contact name</label>
+                  <input type="text" class="form-control" id="contactName" [(ngModel)]="sellerAdd.contactName"
+                     name="contactName" placeholder="" value="" required="">
+                
+               </div>
+            </div>
+            <div class="mb-3">
+               <label for="email">Email <span class="text-muted">(Optional)</span></label>
+               <input type="email" class="form-control" id="email" name="email" [(ngModel)]="sellerAdd.email"
+                  placeholder="you@example.com">
+               <p *ngIf="invalidemail == true" style="color: red;"> Invalid email address</p>
+              
+            </div>
+            <div class="row">
+               <div class="col-md-5 mb-3">
+                  <label for="country">Currencies</label>
+                  <ng-select [items]="currencies" bindLabel="name" bindValue="name" [multiple]="true" name="currencies"
+                     placeholder="Select currencies" [(ngModel)]="sellerAdd.currencies">
+                  </ng-select>
+                  <p *ngIf="sellerAdd.currencies.length == 0 && isSubmit == true" style="color: red;"> Currency is
+                     required</p>
+               
+               </div>
+               <div class="col-md-4 mb-3">
+                  <label for="state">Offices</label>
+                  <ng-select [items]="offices" bindLabel="name" bindValue="name" [multiple]="true" name="offices"
+                     placeholder="Select offices" [(ngModel)]="sellerAdd.offices">
+                  </ng-select>
+                  <p *ngIf="sellerAdd.offices.length == 0 && isSubmit == true" style="color: red;"> Office is required
+                  </p>
+                 
+               </div>
+            </div>
+            <hr class="mb-4">
+            <div class="row">
+               <div class="col-md-4">
+                  <div>
+                     <label for="dealType">Deal Type</label>
+                  </div>
+                  <div class="custom-control custom-checkbox">
+
+                     <input type="checkbox" class="custom-control-input" id="Bidded" name="Bidded"
+                        (change)="biddedClick()" [(ngModel)]="sellerAdd.bidded" [checked]="Bidded">
+                     <label class="custom-control-label" for="Bidded">Bidded</label>
+                  </div>
+                  <div class="custom-control custom-checkbox">
+                     <input type="checkbox" class="custom-control-input" id="Guranteed" name="Guranteed"
+                        (change)="guranteedClick()" [(ngModel)]="sellerAdd.guranteed" [checked]="Guranteed">
+                     <label class="custom-control-label" for="Guranteed">Guranteed</label>
+                  </div>
+                  <p *ngIf="isDealType" style="color: red;"> Deal Type is required</p>
+               </div>
+               <div class="col-md-8">
+                  <input type="text" class="form-control" [minDate]="minDate" [maxDate]="maxDate" #dp="bsDatepicker"
+                     name="bsDatepicker" bsDatepicker [(bsValue)]="myDateValue" [(ngModel)]="sellerAdd.date">
+               </div>
+            </div>
+            <hr class="mb-4">
+            <button class="btn btn-danger mr-3 btn-md" routerLink="/SellerList" type="submit">Cancel</button>
+            <button class="btn btn-primary btn-md" (click)="onSubmit()" type="submit">Submit</button>
+         </form>
+      </div>
+   </div>
+</div>
